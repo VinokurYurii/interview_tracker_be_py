@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+CLAUDE.md
+TODO.md
+db.sqlite3
