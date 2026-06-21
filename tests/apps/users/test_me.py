@@ -2,22 +2,6 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from apps.users.models import User
-
-@pytest.fixture
-def user(db):
-    return User.objects.create_user(
-        email="alice@example.com",
-        password="StrongPass123!",
-        first_name="Alice",
-        last_name="Smith",
-    )
-
-@pytest.fixture
-def auth_client(user):
-    client = APIClient()
-    client.force_authenticate(user=user)
-    return client
 
 @pytest.mark.django_db
 def test_me_returns_user_profile(auth_client, user):
