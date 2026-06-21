@@ -1,1 +1,3 @@
-from .base import * # noqa: F403
+from config.settings.base import *
+
+INSTALLED_APPS += ["django_extensions"]

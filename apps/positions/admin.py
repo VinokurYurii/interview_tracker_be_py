@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.positions.models import Position
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ("title", "company", "status", "user")
