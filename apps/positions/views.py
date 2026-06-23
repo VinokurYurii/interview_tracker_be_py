@@ -1,10 +1,12 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from apps.positions.models import Position
 from apps.positions.serializers import PositionSerializer
 
 class PositionViewSet(viewsets.ModelViewSet):
     serializer_class = PositionSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return (

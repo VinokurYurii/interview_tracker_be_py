@@ -11,11 +11,13 @@ class InterviewStageViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_position(self):
-        return get_object_or_404(
-            Position,
-            pk=self.kwargs["position_pk"],
-            user=self.request.user
-        )
+        if not hasattr(self, "_position"):
+            self._position = get_object_or_404(
+                Position,
+                pk=self.kwargs["position_pk"],
+                user=self.request.user
+            )
+        return self._position
 
     def get_queryset(self):
         return InterviewStage.objects.filter(position=self.get_position())

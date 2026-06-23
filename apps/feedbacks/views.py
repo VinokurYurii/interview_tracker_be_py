@@ -11,11 +11,13 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_interview_stage(self):
-        return get_object_or_404(
-            InterviewStage,
-            pk=self.kwargs["interview_stage_pk"],
-            position__user=self.request.user
-        )
+        if not hasattr(self, "_interview_stage"):
+            self._interview_stage = get_object_or_404(
+                InterviewStage,
+                pk=self.kwargs["interview_stage_pk"],
+                position__user=self.request.user
+            )
+        return self._interview_stage
     
     def get_queryset(self):
         return Feedback.objects.filter(interview_stage=self.get_interview_stage())
