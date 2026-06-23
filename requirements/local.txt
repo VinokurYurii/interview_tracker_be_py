@@ -4,4 +4,4 @@
   ruff
   factory-boy
   model-bakery
-  django-extensions=4.1
+  django-extensions==4.1
