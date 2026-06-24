@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     "rest_framework",
+    "drf_spectacular",
     "apps.users",
     "apps.companies",
     "apps.positions",
@@ -135,6 +136,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
@@ -145,3 +147,9 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = "users.User"
 
 CORS_URLS_REGEX = r"^/api/.*$"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Interview Tracker API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}

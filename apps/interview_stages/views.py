@@ -1,11 +1,13 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 
 from apps.interview_stages.models import InterviewStage
 from apps.interview_stages.serializers import InterviewStageSerializer
 from apps.positions.models import Position
 
+@extend_schema(tags=["Interview Stages"])
 class InterviewStageViewSet(viewsets.ModelViewSet):
     serializer_class = InterviewStageSerializer
     permission_classes = [IsAuthenticated]
