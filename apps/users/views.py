@@ -51,7 +51,7 @@ class SignInView(UnwrapUserMixin, TokenObtainPairView):
         return new_response
 
 @extend_schema(tags=["Auth"])
-class MeView(generics.RetrieveUpdateAPIView):
+class MeView(UnwrapUserMixin, generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
