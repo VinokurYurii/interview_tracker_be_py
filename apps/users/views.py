@@ -6,13 +6,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.users.models import User
 from apps.users.serializers import RegisterSerializer, UserSerializer
-
-
-class UnwrapUserMixin:
-    def get_serializer(self, *args, **kwargs):
-        if "data" in kwargs:
-            kwargs["data"] = kwargs["data"].get("user", kwargs["data"])
-        return super().get_serializer(*args, **kwargs)
+from core.mixins import UnwrapResourceMixin
 
 @extend_schema(tags=["Auth"])
 class SignOutView(generics.GenericAPIView):
@@ -22,11 +16,12 @@ class SignOutView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @extend_schema(tags=["Auth"])
-class RegisterView(UnwrapUserMixin, generics.CreateAPIView):
+class RegisterView(UnwrapResourceMixin, generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = (permissions.AllowAny,)
     authentication_classes = []
+    resource_key = "user"
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -38,8 +33,9 @@ class RegisterView(UnwrapUserMixin, generics.CreateAPIView):
         return response
     
 @extend_schema(tags=["Auth"])
-class SignInView(UnwrapUserMixin, TokenObtainPairView):
+class SignInView(UnwrapResourceMixin, TokenObtainPairView):
     authentication_classes = []
+    resource_key = "user"
     
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -51,9 +47,10 @@ class SignInView(UnwrapUserMixin, TokenObtainPairView):
         return new_response
 
 @extend_schema(tags=["Auth"])
-class MeView(UnwrapUserMixin, generics.RetrieveUpdateAPIView):
+class MeView(UnwrapResourceMixin, generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    resource_key = "user"
 
     def get_object(self):
         return self.request.user

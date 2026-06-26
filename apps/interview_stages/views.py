@@ -6,11 +6,13 @@ from drf_spectacular.utils import extend_schema
 from apps.interview_stages.models import InterviewStage
 from apps.interview_stages.serializers import InterviewStageSerializer
 from apps.positions.models import Position
+from core.mixins import UnwrapResourceMixin
 
 @extend_schema(tags=["Interview Stages"])
-class InterviewStageViewSet(viewsets.ModelViewSet):
+class InterviewStageViewSet(UnwrapResourceMixin, viewsets.ModelViewSet):
     serializer_class = InterviewStageSerializer
     permission_classes = [IsAuthenticated]
+    resource_key = "interview_stage"
 
     def get_position(self):
         if not hasattr(self, "_position"):
