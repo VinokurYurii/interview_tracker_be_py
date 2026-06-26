@@ -4,11 +4,13 @@ from drf_spectacular.utils import extend_schema
 
 from apps.positions.models import Position
 from apps.positions.serializers import PositionSerializer
+from core.mixins import UnwrapResourceMixin
 
 @extend_schema(tags=["Positions"])
-class PositionViewSet(viewsets.ModelViewSet):
+class PositionViewSet(UnwrapResourceMixin, viewsets.ModelViewSet):
     serializer_class = PositionSerializer
     permission_classes = [IsAuthenticated]
+    resource_key = "position"
 
     def get_queryset(self):
         return (

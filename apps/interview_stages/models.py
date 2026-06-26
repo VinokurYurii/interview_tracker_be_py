@@ -5,14 +5,20 @@ from apps.positions.models import Position
 class InterviewStage(models.Model):
     class StageType(models.TextChoices):
         HR = "hr", "HR"
+        SCREENING = "screening", "Screening"
         TECHNICAL = "technical", "Technical"
+        LIVE_CODING = "live_coding", "Live Coding"
+        SYSTEM_DESIGN = "system_design", "System Design"
+        TAKE_HOME = "take_home", "Take Home"
         CLIENT = "client", "Client"
-        OTHER = "other", "Other"
+        MANAGERIAL = "managerial", "Managerial"
+        FINAL = "final", "Final"
+        OFFER = "offer", "Offer"
 
     class Status(models.TextChoices):
         PLANNED = "planned", "Planned"
-        COMPLETED = "completed", "Completed"
-        CANCELLED = "cancelled", "Cancelled"
+        DONE = "done", "Done"
+        DECLINED = "declined", "Declined"
 
     position = models.ForeignKey(
         Position,

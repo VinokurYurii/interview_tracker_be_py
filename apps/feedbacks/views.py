@@ -6,11 +6,13 @@ from drf_spectacular.utils import extend_schema
 from apps.feedbacks.models import Feedback
 from apps.feedbacks.serializers import FeedbackSerializer
 from apps.interview_stages.models import InterviewStage
+from core.mixins import UnwrapResourceMixin
 
 @extend_schema(tags=["Feedbacks"])
-class FeedbackViewSet(viewsets.ModelViewSet):
+class FeedbackViewSet(UnwrapResourceMixin, viewsets.ModelViewSet):
     serializer_class = FeedbackSerializer
     permission_classes = [IsAuthenticated]
+    resource_key = "feedback"
 
     def get_interview_stage(self):
         if not hasattr(self, "_interview_stage"):
