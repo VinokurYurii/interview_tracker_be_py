@@ -29,6 +29,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
+APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
 
@@ -147,6 +149,8 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = "users.User"
 
 CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_EXPOSE_HEADERS = ["Authorization"]
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Interview Tracker API",
