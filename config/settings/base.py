@@ -31,7 +31,7 @@ DEBUG = env.bool("DEBUG", default=False)
 
 APPEND_SLASH = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
 # Application definition
