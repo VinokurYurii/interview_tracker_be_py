@@ -28,7 +28,10 @@ jobs:
     env:
       SECRET_KEY: ci-secret-key-not-used-in-production
       DEBUG: "True"
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/interview_tracker
+      DATABASE_NAME: interview_tracker
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: localhost
 
     steps:
       - uses: actions/checkout@v4
